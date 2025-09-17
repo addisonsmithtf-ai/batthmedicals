@@ -42,7 +42,7 @@ const StaffDashboard = ({ username, onLogout }: StaffDashboardProps) => {
         <div className="flex h-16 items-center justify-between px-6">
           <div className="flex items-center space-x-4">
             <FileText className="h-8 w-8 text-primary" />
-            <h1 className="text-xl font-semibold">Medical Policies</h1>
+            <h1 className="text-xl font-semibold">Batth Medicals Ltd</h1>
           </div>
           <div className="flex items-center space-x-4">
             <span className="text-sm text-muted-foreground">Welcome, {username}</span>

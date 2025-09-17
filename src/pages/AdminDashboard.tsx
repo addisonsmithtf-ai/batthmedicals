@@ -85,7 +85,7 @@ const AdminDashboard = ({ username, onLogout }: AdminDashboardProps) => {
         <div className="flex h-16 items-center justify-between px-6">
           <div className="flex items-center space-x-4">
             <FileText className="h-8 w-8 text-primary" />
-            <h1 className="text-xl font-semibold">Admin Dashboard</h1>
+            <h1 className="text-xl font-semibold">Batth Medicals Ltd - Admin</h1>
           </div>
           <div className="flex items-center space-x-4">
             <span className="text-sm text-muted-foreground">Welcome, {username}</span>
