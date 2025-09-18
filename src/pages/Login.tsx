@@ -74,11 +74,6 @@ const Login = ({ onLogin }: LoginProps) => {
               {isLoading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
-          <div className="mt-6 text-center text-sm text-muted-foreground">
-            <p className="mb-2">Demo accounts:</p>
-            <p>Staff: staff / password</p>
-            <p>Admin: admin / password</p>
-          </div>
         </CardContent>
       </Card>
     </div>
