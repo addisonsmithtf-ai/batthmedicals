@@ -16,7 +16,6 @@ interface AuthContextType {
   profile: Profile | null;
   userRole: 'staff' | 'admin' | null;
   loading: boolean;
-  signUp: (email: string, password: string, displayName: string) => Promise<{ error: any }>;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
   updateProfile: (data: Partial<Profile>) => Promise<{ error: any }>;
@@ -95,28 +94,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const signUp = async (email: string, password: string, displayName: string) => {
-    const redirectUrl = `${window.location.origin}/`;
-    
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: redirectUrl,
-        data: {
-          display_name: displayName
-        }
-      }
-    });
-
-    if (error) {
-      toast.error(error.message);
-    } else {
-      toast.success('Account created! Please check your email to verify your account.');
-    }
-
-    return { error };
-  };
 
   const signIn = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({
@@ -162,7 +139,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     profile,
     userRole,
     loading,
-    signUp,
     signIn,
     signOut,
     updateProfile
