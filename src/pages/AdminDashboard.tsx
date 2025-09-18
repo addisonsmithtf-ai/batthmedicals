@@ -3,17 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, FileText, LogOut, Plus, Edit, Trash2, Eye, Users } from "lucide-react";
 import { mockPolicies } from "@/data/mockData";
 import PolicyViewer from "@/components/PolicyViewer";
 import PolicyEditor from "@/components/PolicyEditor";
+import UserManagement from "@/components/UserManagement";
+import { useAuth } from "@/hooks/useAuth";
 
-interface AdminDashboardProps {
-  username: string;
-  onLogout: () => void;
-}
-
-const AdminDashboard = ({ username, onLogout }: AdminDashboardProps) => {
+const AdminDashboard = () => {
+  const { profile, signOut } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedPolicy, setSelectedPolicy] = useState<any>(null);
@@ -36,7 +35,7 @@ const AdminDashboard = ({ username, onLogout }: AdminDashboardProps) => {
         ...policyData,
         id: Date.now().toString(),
         lastUpdated: new Date().toISOString(),
-        createdBy: username
+        createdBy: profile?.display_name || 'Admin'
       };
       setPolicies([...policies, newPolicy]);
     } else {
@@ -88,8 +87,8 @@ const AdminDashboard = ({ username, onLogout }: AdminDashboardProps) => {
             <h1 className="text-xl font-semibold">Batth Medicals Ltd - Admin</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <span className="text-sm text-muted-foreground">Welcome, {username}</span>
-            <Button variant="outline" size="sm" onClick={onLogout}>
+            <span className="text-sm text-muted-foreground">Welcome, {profile?.display_name || 'Admin'}</span>
+            <Button variant="outline" size="sm" onClick={signOut}>
               <LogOut className="h-4 w-4 mr-2" />
               Logout
             </Button>
@@ -98,18 +97,25 @@ const AdminDashboard = ({ username, onLogout }: AdminDashboardProps) => {
       </header>
 
       <main className="container mx-auto px-6 py-8">
-        <div className="mb-8 flex justify-between items-center">
-          <div>
-            <h2 className="text-3xl font-bold mb-2">Policy Management</h2>
-            <p className="text-muted-foreground">
-              Create, edit, and manage medical policies
-            </p>
-          </div>
-          <Button onClick={() => setIsCreating(true)}>
-            <Plus className="h-4 w-4 mr-2" />
-            Create Policy
-          </Button>
-        </div>
+        <Tabs defaultValue="policies" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="policies">Policy Management</TabsTrigger>
+            <TabsTrigger value="users">User Management</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="policies" className="space-y-6">
+            <div className="mb-8 flex justify-between items-center">
+              <div>
+                <h2 className="text-3xl font-bold mb-2">Policy Management</h2>
+                <p className="text-muted-foreground">
+                  Create, edit, and manage medical policies
+                </p>
+              </div>
+              <Button onClick={() => setIsCreating(true)}>
+                <Plus className="h-4 w-4 mr-2" />
+                Create Policy
+              </Button>
+            </div>
 
         <div className="grid gap-6 mb-8 md:grid-cols-3">
           <Card>
@@ -228,6 +234,12 @@ const AdminDashboard = ({ username, onLogout }: AdminDashboardProps) => {
             <p className="text-muted-foreground">Try adjusting your search or filter criteria</p>
           </div>
         )}
+          </TabsContent>
+          
+          <TabsContent value="users">
+            <UserManagement />
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );

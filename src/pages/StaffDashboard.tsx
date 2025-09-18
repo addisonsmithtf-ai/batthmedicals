@@ -6,13 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Search, FileText, LogOut, Filter, Eye } from "lucide-react";
 import { mockPolicies } from "@/data/mockData";
 import PolicyViewer from "@/components/PolicyViewer";
+import { useAuth } from "@/hooks/useAuth";
 
-interface StaffDashboardProps {
-  username: string;
-  onLogout: () => void;
-}
-
-const StaffDashboard = ({ username, onLogout }: StaffDashboardProps) => {
+const StaffDashboard = () => {
+  const { profile, signOut } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedPolicy, setSelectedPolicy] = useState<any>(null);
@@ -45,8 +42,8 @@ const StaffDashboard = ({ username, onLogout }: StaffDashboardProps) => {
             <h1 className="text-xl font-semibold">Batth Medicals Ltd</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <span className="text-sm text-muted-foreground">Welcome, {username}</span>
-            <Button variant="outline" size="sm" onClick={onLogout}>
+            <span className="text-sm text-muted-foreground">Welcome, {profile?.display_name || 'User'}</span>
+            <Button variant="outline" size="sm" onClick={signOut}>
               <LogOut className="h-4 w-4 mr-2" />
               Logout
             </Button>
