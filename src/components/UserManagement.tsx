@@ -7,13 +7,13 @@ const UserManagement = () => {
   const systemAccounts = [
     {
       id: '1',
-      email: 'admin@batthmedicalsltd.com',
+      email: 'info@batthmedicals.co.uk',
       role: 'admin',
       status: 'Active'
     },
     {
       id: '2', 
-      email: 'staff@batthmedicalsltd.com',
+      email: 'media@batthmedicals.co.uk',
       role: 'staff',
       status: 'Active'
     }
