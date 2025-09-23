@@ -12,9 +12,6 @@ const Index = () => {
             <Shield className="h-10 w-10 text-primary-foreground" />
           </div>
           <CardTitle className="text-3xl font-bold">Batth Medicals Ltd</CardTitle>
-          <CardDescription className="text-lg">
-            Medical Policy Management Portal
-          </CardDescription>
         </CardHeader>
         <CardContent className="text-center space-y-6">
           <p className="text-muted-foreground text-lg">
