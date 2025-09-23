@@ -17,16 +17,11 @@ const Index = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="text-center space-y-6">
-          <p className="text-muted-foreground">
-            Secure access to medical policies and procedures for healthcare professionals.
+          <p className="text-muted-foreground text-lg">
+            Our Policies Portal
           </p>
           
           <div className="space-y-4">
-            <div className="text-sm text-muted-foreground">
-              <p>✓ Role-based access control</p>
-              <p>✓ Secure document management</p>
-              <p>✓ Real-time policy updates</p>
-            </div>
             
             <Link to="/auth">
               <Button size="lg" className="w-full">
