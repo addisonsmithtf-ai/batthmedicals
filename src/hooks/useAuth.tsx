@@ -33,21 +33,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         
         if (session?.user) {
-          // Fetch user profile and role
+          // Fetch user profile and role AFTER auth event settles, then stop loading
           setTimeout(async () => {
-            await fetchUserData(session.user.id);
+            try {
+              await fetchUserData(session.user.id);
+            } catch (e) {
+              console.error('Auth state fetch error:', e);
+            } finally {
+              setLoading(false);
+            }
           }, 0);
         } else {
           setProfile(null);
           setUserRole(null);
+          setLoading(false);
         }
-        
-        setLoading(false);
       }
     );
 
