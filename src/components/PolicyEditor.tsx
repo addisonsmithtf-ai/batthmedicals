@@ -6,9 +6,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Save, X } from "lucide-react";
 
+import { Policy } from "@/hooks/usePolicies";
+
 interface PolicyEditorProps {
-  policy?: any;
-  onSave: (policyData: any) => void;
+  policy?: Policy;
+  onSave: (policyData: Omit<Policy, 'id' | 'created_at' | 'updated_at' | 'created_by'>) => void;
   onCancel: () => void;
 }
 

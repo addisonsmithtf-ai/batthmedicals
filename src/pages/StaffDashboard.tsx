@@ -3,20 +3,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Search, FileText, LogOut, Filter, Eye } from "lucide-react";
-import { mockPolicies } from "@/data/mockData";
+import { Search, FileText, LogOut, Filter, Eye, Loader2 } from "lucide-react";
 import PolicyViewer from "@/components/PolicyViewer";
 import { useAuth } from "@/hooks/useAuth";
+import { usePolicies, Policy } from "@/hooks/usePolicies";
 
 const StaffDashboard = () => {
   const { profile, signOut } = useAuth();
+  const { policies, loading } = usePolicies();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [selectedPolicy, setSelectedPolicy] = useState<any>(null);
+  const [selectedPolicy, setSelectedPolicy] = useState<Policy | null>(null);
 
-  const categories = ["all", ...Array.from(new Set(mockPolicies.map(p => p.category)))];
+  const categories = ["all", ...Array.from(new Set(policies.map(p => p.category)))];
 
-  const filteredPolicies = mockPolicies.filter(policy => {
+  const filteredPolicies = policies.filter(policy => {
     const matchesSearch = policy.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          policy.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === "all" || policy.category === selectedCategory;
@@ -85,8 +86,14 @@ const StaffDashboard = () => {
           </div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredPolicies.map((policy) => (
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin" />
+            <span className="ml-2">Loading policies...</span>
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {filteredPolicies.map((policy) => (
             <Card key={policy.id} className="hover:shadow-md transition-shadow">
               <CardHeader>
                 <div className="flex justify-between items-start">
@@ -103,10 +110,10 @@ const StaffDashboard = () => {
                     <span className="text-muted-foreground">Category:</span>
                     <Badge variant="outline">{policy.category}</Badge>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Last Updated:</span>
-                    <span>{new Date(policy.lastUpdated).toLocaleDateString()}</span>
-                  </div>
+                   <div className="flex justify-between text-sm">
+                     <span className="text-muted-foreground">Last Updated:</span>
+                     <span>{new Date(policy.updated_at).toLocaleDateString()}</span>
+                   </div>
                   <Button 
                     onClick={() => setSelectedPolicy(policy)}
                     className="w-full"
@@ -118,14 +125,15 @@ const StaffDashboard = () => {
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
+            ))}
 
-        {filteredPolicies.length === 0 && (
-          <div className="text-center py-12">
-            <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">No policies found</h3>
-            <p className="text-muted-foreground">Try adjusting your search or filter criteria</p>
+            {filteredPolicies.length === 0 && !loading && (
+              <div className="text-center py-12 col-span-full">
+                <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-semibold mb-2">No policies found</h3>
+                <p className="text-muted-foreground">Try adjusting your search or filter criteria</p>
+              </div>
+            )}
           </div>
         )}
       </main>
