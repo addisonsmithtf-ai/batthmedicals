@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AlertCircle } from "lucide-react";
+import { PasswordResetDialog } from "./PasswordResetDialog";
 
 const UserManagement = () => {
   // Display the two required accounts
@@ -46,6 +47,9 @@ const UserManagement = () => {
                       {account.status}
                     </Badge>
                   </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <PasswordResetDialog isAdmin={true} />
                 </div>
               </div>
             ))}

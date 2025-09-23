@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Shield, Mail, Lock } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { Navigate } from "react-router-dom";
+import { PasswordResetDialog } from "@/components/PasswordResetDialog";
 
 const Auth = () => {
   const { signIn, user, loading } = useAuth();
@@ -86,7 +87,17 @@ const Auth = () => {
               {isLoading ? "Signing in..." : "Sign In"}
             </Button>
             
-            <div className="text-sm text-muted-foreground text-center mt-4">
+            <div className="text-center mt-4">
+              <PasswordResetDialog 
+                trigger={
+                  <Button variant="link" size="sm" className="text-sm text-muted-foreground">
+                    Forgot your password?
+                  </Button>
+                }
+              />
+            </div>
+            
+            <div className="text-sm text-muted-foreground text-center mt-2">
               <p>Contact your administrator for account access</p>
             </div>
           </form>
