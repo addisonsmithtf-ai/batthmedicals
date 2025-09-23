@@ -30,14 +30,32 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={
         user ? (
-          <Navigate to={userRole === 'admin' ? '/admin' : '/staff'} replace />
+          userRole ? (
+            <Navigate to={userRole === 'admin' ? '/admin' : '/staff'} replace />
+          ) : (
+            <div className="min-h-screen flex items-center justify-center">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+                <p>Loading your dashboard...</p>
+              </div>
+            </div>
+          )
         ) : (
           <Index />
         )
       } />
       <Route path="/auth" element={
         user ? (
-          <Navigate to={userRole === 'admin' ? '/admin' : '/staff'} replace />
+          userRole ? (
+            <Navigate to={userRole === 'admin' ? '/admin' : '/staff'} replace />
+          ) : (
+            <div className="min-h-screen flex items-center justify-center">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+                <p>Loading your dashboard...</p>
+              </div>
+            </div>
+          )
         ) : (
           <Auth />
         )
