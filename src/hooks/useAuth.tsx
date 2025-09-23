@@ -62,9 +62,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(session?.user ?? null);
       
       if (session?.user) {
-        await fetchUserData(session.user.id);
+        try {
+          await fetchUserData(session.user.id);
+        } catch (error) {
+          console.error('Initial session fetch error:', error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return () => subscription.unsubscribe();
