@@ -101,7 +101,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send email with reset link
     const emailResponse = await resend.emails.send({
-      from: "Batth Medicals <noreply@batthmedicals.co.uk>",
+      from: "Batth Medicals <onboarding@resend.dev>",
       to: [email],
       subject: "Password Reset Request - Batth Medicals Ltd",
       html: `
