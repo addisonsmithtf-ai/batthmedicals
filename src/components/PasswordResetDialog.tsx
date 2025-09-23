@@ -33,6 +33,13 @@ export const PasswordResetDialog = ({ isAdmin = false, trigger }: PasswordResetD
       return;
     }
 
+    // Frontend validation for allowed emails
+    const allowedEmails = ["info@batthmedicals.co.uk"];
+    if (!allowedEmails.includes(resetEmail.toLowerCase())) {
+      toast.error("Password reset not allowed for this email address");
+      return;
+    }
+
     setLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke('send-password-reset', {

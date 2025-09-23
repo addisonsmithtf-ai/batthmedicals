@@ -48,6 +48,16 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
+    // Check if email is allowed for password reset
+    const allowedEmails = ["info@batthmedicals.co.uk"];
+    if (!allowedEmails.includes(email.toLowerCase())) {
+      console.log(`Password reset not allowed for email: ${email}`);
+      return new Response(
+        JSON.stringify({ error: "Password reset not allowed for this email address" }),
+        { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     console.log(`Processing password reset request for: ${email}`);
 
     // Check if user exists
