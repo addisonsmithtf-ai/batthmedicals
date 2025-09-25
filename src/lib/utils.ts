@@ -15,7 +15,7 @@ export function formatDate(dateString: string | null | undefined): string {
       date = new Date(dateString.replace(" ", "T"));
     }
     if (isNaN(date.getTime())) return "Invalid date";
-    return date.toLocaleDateString();
+    return date.toLocaleDateString('en-GB');
   } catch {
     return "Invalid date";
   }
