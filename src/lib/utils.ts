@@ -9,7 +9,11 @@ export function formatDate(dateString: string | null | undefined): string {
   if (!dateString) return "Not available";
   
   try {
-    const date = new Date(dateString);
+    let date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      // Normalize common Postgres format with space between date and time
+      date = new Date(dateString.replace(" ", "T"));
+    }
     if (isNaN(date.getTime())) return "Invalid date";
     return date.toLocaleDateString();
   } catch {
