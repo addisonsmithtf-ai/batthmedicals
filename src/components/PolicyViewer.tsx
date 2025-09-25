@@ -89,11 +89,6 @@ const PolicyViewer = ({ policy, onBack, userRole }: PolicyViewerProps) => {
           <p>
             This document was accessed by {userRole} user on {new Date().toLocaleDateString()} at {new Date().toLocaleTimeString()}
           </p>
-          {policy.created_by && (
-            <p className="mt-1">
-              Created by: {policy.created_by}
-            </p>
-          )}
         </div>
       </main>
     </div>
