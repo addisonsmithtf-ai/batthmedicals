@@ -5,6 +5,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Save, X } from "lucide-react";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 import { Policy } from "@/hooks/usePolicies";
 
@@ -32,7 +34,14 @@ const PolicyEditor = ({ policy, onSave, onCancel }: PolicyEditorProps) => {
     "Medication Management",
     "Infection Control",
     "Documentation",
-    "Quality Assurance"
+    "Quality Assurance",
+    "Occupational Health",
+    "Ultrasound",
+    "Blood Tests",
+    "Risk Assessment",
+    "ECG",
+    "IV Drip",
+    "Aesthetic Treatments"
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -142,14 +151,31 @@ const PolicyEditor = ({ policy, onSave, onCancel }: PolicyEditorProps) => {
 
               <div className="space-y-2">
                 <Label htmlFor="content">Policy Content</Label>
-                <Textarea
-                  id="content"
-                  value={formData.content}
-                  onChange={(e) => handleChange('content', e.target.value)}
-                  placeholder="Enter the full policy content..."
-                  className="h-96 font-mono text-sm"
-                  required
-                />
+                <div className="border border-input rounded-md overflow-hidden">
+                  <ReactQuill
+                    value={formData.content}
+                    onChange={(value) => handleChange('content', value)}
+                    placeholder="Enter the full policy content..."
+                    style={{ minHeight: '384px' }}
+                    modules={{
+                      toolbar: [
+                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        [{ 'indent': '-1'}, { 'indent': '+1' }],
+                        [{ 'align': [] }],
+                        ['link', 'image'],
+                        [{ 'color': [] }, { 'background': [] }],
+                        ['clean']
+                      ],
+                    }}
+                    formats={[
+                      'header', 'bold', 'italic', 'underline', 'strike',
+                      'list', 'bullet', 'indent', 'align',
+                      'link', 'image', 'color', 'background'
+                    ]}
+                  />
+                </div>
               </div>
             </CardContent>
           </Card>
