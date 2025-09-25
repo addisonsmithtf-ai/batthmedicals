@@ -10,6 +10,7 @@ import PolicyEditor from "@/components/PolicyEditor";
 import UserManagement from "@/components/UserManagement";
 import { useAuth } from "@/hooks/useAuth";
 import { usePolicies, Policy } from "@/hooks/usePolicies";
+import { formatDate } from "@/lib/utils";
 
 const AdminDashboard = () => {
   const { profile, signOut } = useAuth();
@@ -192,9 +193,9 @@ const AdminDashboard = () => {
                       <Badge variant="outline">{policy.category}</Badge>
                     </div>
                      <div className="flex justify-between text-sm">
-                       <span className="text-muted-foreground">Last Updated:</span>
-                       <span>{new Date(policy.updated_at).toLocaleDateString()}</span>
-                     </div>
+                        <span className="text-muted-foreground">Last Updated:</span>
+                        <span>{formatDate(policy.updated_at)}</span>
+                      </div>
                     <div className="flex gap-2">
                       <Button 
                         onClick={() => setSelectedPolicy(policy)}

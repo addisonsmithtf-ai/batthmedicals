@@ -7,6 +7,7 @@ import { Search, FileText, LogOut, Filter, Eye, Loader2 } from "lucide-react";
 import PolicyViewer from "@/components/PolicyViewer";
 import { useAuth } from "@/hooks/useAuth";
 import { usePolicies, Policy } from "@/hooks/usePolicies";
+import { formatDate } from "@/lib/utils";
 
 const StaffDashboard = () => {
   const { profile, signOut } = useAuth();
@@ -112,7 +113,7 @@ const StaffDashboard = () => {
                   </div>
                    <div className="flex justify-between text-sm">
                      <span className="text-muted-foreground">Last Updated:</span>
-                     <span>{new Date(policy.updated_at).toLocaleDateString()}</span>
+                     <span>{formatDate(policy.updated_at)}</span>
                    </div>
                   <Button 
                     onClick={() => setSelectedPolicy(policy)}
