@@ -1,1 +1,4 @@
 project_id = "zytczgajcydiwrkcpkya"
+
+[functions.import-policies]
+verify_jwt = false
