@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Calendar, User, Download, Printer } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+import DOMPurify from "dompurify";
 
 interface PolicyViewerProps {
   policy: any;
@@ -79,7 +80,7 @@ const PolicyViewer = ({ policy, onBack, userRole }: PolicyViewerProps) => {
             <div className="prose prose-sm max-w-none">
               <div 
                 className="whitespace-pre-wrap text-foreground leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: policy.content.replace(/\n/g, '<br/>') }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(policy.content.replace(/\n/g, '<br/>')) }}
               />
             </div>
           </CardContent>
