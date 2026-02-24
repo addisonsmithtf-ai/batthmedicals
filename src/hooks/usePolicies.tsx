@@ -24,14 +24,11 @@ export const usePolicies = () => {
   const fetchPolicies = async () => {
     try {
       setLoading(true);
-      let query = supabase.from('policies').select('*');
-      
-      // Staff can only see active policies, admins see all
-      if (userRole === 'staff') {
-        query = query.eq('status', 'active');
-      }
-      
-      const { data, error } = await query.order('updated_at', { ascending: false });
+      // RLS enforces access control server-side: staff see only active, admins see all
+      const { data, error } = await supabase
+        .from('policies')
+        .select('*')
+        .order('updated_at', { ascending: false });
       
       if (error) throw error;
       setPolicies(data || []);

@@ -51,7 +51,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Check if email is allowed for password reset
     const allowedEmails = ["info@batthmedicals.co.uk"];
     if (!allowedEmails.includes(email.toLowerCase())) {
-      console.log(`Password reset not allowed for email: ${email}`);
+      console.log("Password reset not allowed for requested email");
       return new Response(
         JSON.stringify({ error: "Password reset not allowed for this email address" }),
         { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
@@ -75,7 +75,7 @@ const handler = async (req: Request): Promise<Response> => {
     
     if (!userExists) {
       // Don't reveal whether user exists, but return success
-      console.log(`User ${email} not found, but returning success for security`);
+      console.log("User not found, returning success for security");
       return new Response(
         JSON.stringify({ message: "If an account with that email exists, a password reset link has been sent." }),
         { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
@@ -161,7 +161,7 @@ const handler = async (req: Request): Promise<Response> => {
     );
 
   } catch (error: any) {
-    console.error("Error in send-password-reset function:", error);
+    console.error("Error in send-password-reset function:", error?.message ?? "Unknown error");
     return new Response(
       JSON.stringify({ error: "Internal server error" }),
       { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
