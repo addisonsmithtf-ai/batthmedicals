@@ -87,13 +87,13 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    console.log(`Admin ${user.email} attempting to reset password for: ${userEmail}`);
+    console.log(`Admin ${user.id} attempting password reset`);
 
     // Find the user by email
     const { data: users, error: listError } = await supabaseClient.auth.admin.listUsers();
     
     if (listError) {
-      console.error("Error listing users:", listError);
+      console.error("Error listing users");
       return new Response(
         JSON.stringify({ error: "Failed to find user" }),
         { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
@@ -126,7 +126,7 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    console.log(`Password successfully updated for user: ${userEmail}`);
+    console.log(`Password successfully updated for user: ${targetUser.id}`);
 
     return new Response(
       JSON.stringify({ 
@@ -140,7 +140,7 @@ const handler = async (req: Request): Promise<Response> => {
     );
 
   } catch (error: any) {
-    console.error("Error in admin-reset-password function:", error);
+    console.error("Error in admin-reset-password function:", error?.message ?? "Unknown error");
     return new Response(
       JSON.stringify({ error: "Internal server error" }),
       { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
