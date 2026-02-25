@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Search, FileText, LogOut, Filter, Eye, Loader2 } from "lucide-react";
+import batthLogo from "@/assets/batth-logo.png";
 import PolicyViewer from "@/components/PolicyViewer";
 import { useAuth } from "@/hooks/useAuth";
 import { usePolicies, Policy } from "@/hooks/usePolicies";
@@ -40,7 +41,7 @@ const StaffDashboard = () => {
       <header className="border-b bg-card shadow-sm">
         <div className="flex h-16 items-center justify-between px-6">
           <div className="flex items-center space-x-4">
-            <FileText className="h-8 w-8 text-primary" />
+            <img src={batthLogo} alt="Batth Medicals Ltd" className="h-10 w-auto" />
             <h1 className="text-xl font-semibold">Batth Medicals Ltd</h1>
           </div>
           <div className="flex items-center space-x-4">

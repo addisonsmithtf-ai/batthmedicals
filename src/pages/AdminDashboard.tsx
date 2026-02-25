@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, FileText, LogOut, Plus, Edit, Trash2, Eye, Users, Loader2 } from "lucide-react";
+import batthLogo from "@/assets/batth-logo.png";
 import PolicyViewer from "@/components/PolicyViewer";
 import PolicyEditor from "@/components/PolicyEditor";
 import UserManagement from "@/components/UserManagement";
@@ -78,7 +79,7 @@ const AdminDashboard = () => {
       <header className="border-b bg-card shadow-sm">
         <div className="flex h-16 items-center justify-between px-6">
           <div className="flex items-center space-x-4">
-            <FileText className="h-8 w-8 text-primary" />
+            <img src={batthLogo} alt="Batth Medicals Ltd" className="h-10 w-auto" />
             <h1 className="text-xl font-semibold">Batth Medicals Ltd - Admin</h1>
           </div>
           <div className="flex items-center space-x-4">

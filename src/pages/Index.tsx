@@ -1,16 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import batthLogo from "@/assets/batth-logo.png";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 flex items-center justify-center px-4">
       <Card className="w-full max-w-lg">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-primary">
-            <Shield className="h-10 w-10 text-primary-foreground" />
-          </div>
+          <img src={batthLogo} alt="Batth Medicals Ltd" className="mx-auto mb-4 h-24 w-auto" />
           <CardTitle className="text-3xl font-bold">Batth Medicals Ltd</CardTitle>
         </CardHeader>
         <CardContent className="text-center space-y-6">
