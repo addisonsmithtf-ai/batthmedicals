@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, Mail, Lock } from "lucide-react";
+import { Mail, Lock } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { Navigate } from "react-router-dom";
+import batthLogo from "@/assets/batth-logo.png";
 
 
 const Auth = () => {
@@ -39,9 +40,7 @@ const Auth = () => {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary">
-            <Shield className="h-8 w-8 text-primary-foreground" />
-          </div>
+          <img src={batthLogo} alt="Batth Medicals Ltd" className="mx-auto mb-4 h-20 w-auto" />
           <CardTitle className="text-2xl font-bold">Batth Medicals Ltd</CardTitle>
           <CardDescription>
             Sign in to access your medical policy portal
